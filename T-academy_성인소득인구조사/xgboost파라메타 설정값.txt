@@ -1,0 +1,84 @@
+## <center style="background-color:black; width:40%;">Contents</center>
+* [데이터 읽어오기.](#데이터_읽어오기)
+* [목표변수 0, 1 변환](#목표변수)
+* [연령 카테고리화 및 연령대 별 50K이상 비율](#연령대)
+* [소득 별 final weight 히스토그램 및 2 sample test](#FINAL_WEIGHT)
+* [소득 별 교육 수준](#교육수준)
+* [소득 별 결혼 여부](#결혼)
+* [소득 별 업종](#업종)
+* [소득 별 가족 관계](#가족)
+* [소득 별 인종](#인종)
+* [소득 별 성별](#성별)
+* [인종 & 성별 별 소득이 50K가 넘는 비율](#파생1)
+* [소득 별 양도 소득](#양도소득)
+* [소득 별 양도 손실](#양도손실)
+* [소득 별 주당 근무 시간](#주당근무시간)
+* [소득 별 국적](#국적)
+* [연속형 설명변수 간 상관계수](#상관)
+* [결측치 및 이상치 도출](#결측치_이상치)
+* [데이터 범주형 데이터 인코딩 및 목표변수 검증데이터셋 분류](#데이터_분류)
+* [의사결정나무](#의사결정나무)
+* [앙상블_랜덤포레스트](#랜덤포레스트)
+* [앙상블_그래디언트 부스팅](#그래디언트부스팅)
+* [SVM](#SVM)
+* [KNN](#KNN)
+* [XGBOOST](#XGBOOST)
+* [Light GBM](#Light_GBM)
+* [모델 평가](#평가)
+
+
+* id
+* age : 나이
+* workclass : 고용 형태
+* fnlwgt : 사람 대표성을 나타내는 가중치 (final weight의 약자)
+* education : 교육 수준
+* education_num : 교육 수준 수치
+* marital_status: 결혼 상태
+* occupation : 업종
+* relationship : 가족 관계
+* race : 인종
+* sex : 성별
+* capital_gain : 양도 소득
+* capital_loss : 양도 손실
+* hours_per_week : 주당 근무 시간
+* native_country : 국적
+* income : 수익 (예측해야 하는 값)
+* >50K : 1
+* <=50K : 0
+
+
+
+<a class="anchor" id="데이터_읽어오기"></a>
+## <center style="background-color:black; width:40%;">데이터 읽어오기.</center>
+
+xgb
+n_estimators = 80
+learning_rate = 0.3
+depth = 6
+min_child_weight = 9
+gamma = 1
+subsample = 0.9
+colsample_bytree = 0.7
+
+n_estimators = 80
+learning_rate = 0.3
+depth = 5
+min_child_weight = 7
+gamma = 1
+subsample = 0.9
+colsample_bytree = 0.7
+'reg_alpha': 1e-05
+
+
+/kaggle/input/kakr-4th-competition/sample_submission.csv
+/kaggle/input/kakr-4th-competition/train.csv
+/kaggle/input/kakr-4th-competition/test.csv
+
+df_val_x, df_val_y = prepro(df_val,mm_scaler)
+
+df_train_y = df_train_y.array
+df_val_y = df_val_y.array
+df_train_y = df_train_y.to_numpy()
+df_val_y = df_val_y.to_numpy()
+df_train_y = df_train_y.astype(np.int)
+df_val_y = df_val_y.astype(np.int)
